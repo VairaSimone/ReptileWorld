@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reptile World By Mihai Snake</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Stili generali */
+        body,
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
+            color: #3d3d3d;
+            background: #c3c6b5;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: linear-gradient(135deg, #355E3B 0%, #A2A200 50%, #775D44 100%);
+            border-bottom: 4px solid #3d3d3d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 1rem 0;
+            margin-bottom: 0;
+
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #FFD700;
+            font-size: 1.1rem;
+            /* Aumenta leggermente la dimensione del testo */
+            font-weight: bold;
+            /* Rendi il testo più visibile */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+            /* Aggiunge ombra per migliorare il contrasto */
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #FFC107;
+            transform: scale(1.1);
+            /* Leggero ingrandimento al passaggio del mouse */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Header */
+        .header-bg {
+            background: url('image/background.jpg') center/cover no-repeat;
+            padding: 300px 0;
+            position: relative;
+
+        }
+
+        .header-bg::after {
+            content: "";
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .header-bg .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-bg h1,
+        .header-bg p {
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        body {
+            padding-top: 80px;
+        }
+
+        /* Contenuto */
+        #dynamic-content {
+            text-align: center;
+            color: #3d3d3d;
+        }
+
+        #dynamic-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        #dynamic-content p {
+            font-size: 1.1rem;
+            color: #5f5f5f;
+            margin-bottom: 1.5rem;
+
+        }
+
+        /* Stile delle card */
+        .card {
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
+            /* Imposta l'altezza uniforme */
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 100px;
+            /* Imposta un margine sotto ogni card */
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            border-bottom: 2px solid #A2A200;
+        }
+
+        .card-body {
+            padding: 15px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Distribuisce uniformemente il contenuto */
+            flex-grow: 1;/
+        }
+
+        .card-deck .card {
+            height: 400px;
+            /* Imposta un'altezza fissa per tutte le card */
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: #3d3d3d;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: #5f5f5f;
+        }
+
+        .text-muted {
+            font-size: 0.9rem;
+            color: #868686;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #3d3d3d;
+            color: #F5F5DC;
+            padding: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        /* Bottone */
+        .btn-primary {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #138496;
+            transform: scale(1.05);
+        }
+
+        /* social media */
+        #contact img {
+            width: 30px;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+
+        #contact img:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top shadow">
+        <div class="container">
+            <a class="navbar-brand" href="#">Reptile World</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="loadSection('breeders')">Riproduttori</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="loadSection('available')">Rettili
+                            disponibili</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="loadSection('food')">Cibo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="loadSection('cards')">Schede
+                            allevamento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="loadSection('contact')">Contatti</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header-bg"></header>
+
+    <!-- Main Content -->
+    <div id="content" class="container mt-3 pt-2">
+        <div id="dynamic-content" class="text-center my-5 py-1 fade-in slide-up">
+            <h1 class="display-4 animate__animated animate__fadeInDown">Benvenuto su Reptile World By Mihai Snake</h1>
+            <p class="lead animate__animated animate__fadeInUp">Scopri i nostri straordinari rettili e il miglior cibo
+                congelato per serpenti.</p>
+            <a onclick="loadSection('available')"
+                class="btn btn-primary mt-3 animate__animated animate__bounceIn">Esplora Ora</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <p>&copy; 2024 Reptile World By Mihai Snake - Torino, Italia</p>
+        <p>Email: mihaisnake76@gmail.com</p>
+
+        <div id="contact">
+            <a href="https://www.instagram.com/reptile_world_by_mihai/"><img src="image/Instagram.svg"
+                    alt="Instagram"></a>
+            <a href="https://www.facebook.com/profile.php?id=61555432659433"><img src="image/Facebook.svg"
+                    alt="Facebook"></a>
+        </div>
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        function loadSection(section) {
+            const content = document.getElementById('dynamic-content');
+            content.classList.add('fade-out');
+            setTimeout(() => {
+                switch (section) {
+                    case 'breeders':
+                        content.innerHTML = `
+                            <div class="row align-items-stretch">
+                                <div class="col-md-4 d-flex py-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="Image/PythonRegius/0.1_Butter_Pastel_Enchi.jpg" class="card-img-top" alt="PythonRegius">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pitone Reale</h5>
+                                            <p class="card-text">Sesso: Femmina</p>
+                                            <p class="card-text">Morph: Butter Pastel Enchi</p>
+                                            <p class="card-text">Presenta una colorazione vibrante e complessa, caratterizzata da sfumature giallo-dorate e marrone chiaro</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 d-flex py-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="Image/PythonRegius/0.1_Dinker.jpg" class="card-img-top" alt="PythonRegius">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pitone Reale</h5>
+                                            <p class="card-text">Sesso: Femmina</p>
+                                            <p class="card-text">Morph: Dinker</p>
+                                            <p class="card-text">Caratterizzato da variazioni insolite nel pattern e nelle sfumature che possono spaziare dal marrone scuro al beige, con effetti marmorizzati e bordi sfumati.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 d-flex py-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="Image/PythonRegius/0.1_Pastel_Mojave_Cinnamon_66%_Het_Pied.jpg" class="card-img-top" alt="PythonRegius">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pitone Reale</h5>
+                                            <p class="card-text">Sesso: Femmina</p>
+                                            <p class="card-text">Morph: Pastel Mojave Cinnamon 66% Het Pied</p>
+                                            <p class="card-text">Combina colori ricchi e contrastanti, con toni dorati e grigi miscelati al marrone caldo</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 d-flex py-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="Image/PythonRegius/1.0_banana_butter_100%_het_clown.jpg" class="card-img-top" alt="PythonRegius">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pitone Reale</h5>
+                                            <p class="card-text">Sesso: Maschio</p>
+                                            <p class="card-text">Morph: Banana Butter 100% Het Clown</p>
+                                            <p class="card-text">Sfoggia una combinazione di colori vivaci con toni giallo acceso e crema, arricchiti da lievi sfumature arancioni e lavanda</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 d-flex py-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="Image/PythonRegius/1.0_Mahogany_Harlequin_Fire.jpg" class="card-img-top" alt="PythonRegius">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pitone Reale</h5>
+                                            <p class="card-text">Sesso: Maschio</p>
+                                            <p class="card-text">Morph: Mahogany Harlequin Fire</p>
+                                            <p class="card-text">Offre una colorazione scura e calda, con tonalità di marrone intenso e accenti rossastri, arricchito dal gene Fire che illumina il pattern e dona sfumature contrastanti</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 d-flex py-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="Image/PythonRegius/1.0_purple_cinnamon_ghi_Mojave_het_pied.jpg" class="card-img-top" alt="PythonRegius">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pitone Reale</h5>
+                                            <p class="card-text">Sesso: Maschio</p>
+                                            <p class="card-text">Morph: Purple Cinnamon Ghi Mojave Het Pied</p>
+                                            <p class="card-text">Una combinazione affascinante di toni viola scuro e marrone intenso, con accenti grigi</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 d-flex py-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="Image/PythonRegius/1.0_yb_pinstripe_pied.jpg" class="card-img-top" alt="PythonRegius">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pitone Reale</h5>
+                                            <p class="card-text">Sesso: Maschio</p>
+                                            <p class="card-text">Morph: YB Pinstripe Pied</p>
+                                            <p class="card-text">Presenta un look distintivo con tonalità calde e contrastanti, un pattern lineare grazie al gene Pinstripe, e ampie aree bianche dovute al gene Pied</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>`;
+                        break;
+                    case 'available':
+                        content.innerHTML = `
+                            <div class="row align-items-stretch">
+                                <div class="col-md-4 py-4">
+                                    <div class="card mb-4 shadow-sm ">
+                                        <img src="https://media.istockphoto.com/id/1181618454/it/vettoriale/timbro-grunge-esaurito-isolato-su-sfondo-bianco-immagine-illustrazione-vettoriale.jpg?s=612x612&w=0&k=20&c=XVLIhHOsJZ7DMH5VSOkH5XEEsKKNYC-Bcw8yLb9yeuw=" class="card-img-top" alt="Pitone reale">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Sould out!</h5>
+                                            <p class="card-text">Descrizione: /</p>
+                                            <p class="text-muted">Prezzo: /</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 py-4">
+                                    <div class="card mb-4 shadow-sm ">
+                                        <img src="https://media.istockphoto.com/id/1181618454/it/vettoriale/timbro-grunge-esaurito-isolato-su-sfondo-bianco-immagine-illustrazione-vettoriale.jpg?s=612x612&w=0&k=20&c=XVLIhHOsJZ7DMH5VSOkH5XEEsKKNYC-Bcw8yLb9yeuw=" class="card-img-top" alt="Baby Boa">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Sould out!</h5>
+                                            <p class="card-text">Descrizione: /</p>
+                                            <p class="text-muted">Prezzo: /</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 py-4">
+                                    <div class="card mb-4 shadow-sm ">
+                                        <img src="https://media.istockphoto.com/id/1181618454/it/vettoriale/timbro-grunge-esaurito-isolato-su-sfondo-bianco-immagine-illustrazione-vettoriale.jpg?s=612x612&w=0&k=20&c=XVLIhHOsJZ7DMH5VSOkH5XEEsKKNYC-Bcw8yLb9yeuw=" class="card-img-top" alt="Baby Boa">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Sould out!</h5>
+                                            <p class="card-text">Descrizione: /</p>
+                                            <p class="text-muted">Prezzo: /</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 py-4">
+                                    <div class="card mb-4 shadow-sm ">
+                                        <img src="https://media.istockphoto.com/id/1181618454/it/vettoriale/timbro-grunge-esaurito-isolato-su-sfondo-bianco-immagine-illustrazione-vettoriale.jpg?s=612x612&w=0&k=20&c=XVLIhHOsJZ7DMH5VSOkH5XEEsKKNYC-Bcw8yLb9yeuw=" class="card-img-top" alt="Baby Boa">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Sould out!</h5>
+                                            <p class="card-text">Descrizione: /</p>
+                                            <p class="text-muted">Prezzo: /</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>`;
+                        break;
+                    case 'food':
+                        content.innerHTML = `
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="https://www.portaledisinfestazione.org/wp-content/uploads/2015/07/topo-500x333.jpg" class="card-img-top" alt="Topi congelati">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Topi Congelati</h5>
+                                            <p class="card-text">Varie dimensioni disponibili, ideali per serpenti.</p>
+                                            <p class="text-muted">Prezzo: €10 / confezione</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-4 shadow-sm">
+                                        <img src="https://www.ameliadambrosio.it/images/ratto_big_img2_hp.jpg" class="card-img-top" alt="Ratti congelati">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Ratti Congelati</h5>
+                                            <p class="card-text">Disponibili in diverse taglie, qualità garantita per rettili di grandi dimensioni.</p>
+                                            <p class="text-muted">Prezzo: €15 / confezione</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                        break;
+                    case 'cards':
+                        content.innerHTML = `
+                            <div class="accordion" id="breedingGuides">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="guide1">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Python Regius: Guida all'Allevamento
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="guide1" data-bs-parent="#breedingGuides">
+                                        <div class="accordion-body">
+                                            Informazioni dettagliate su temperatura, umidità e dieta per un corretto allevamento del Python Regius.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                        break;
+                    case 'contact':
+                        content.innerHTML = `
+                                <section id="contact" class="container my-5">
+                                    <div class="text-center">
+                                        <h2>Contattami</h2>
+                                        <p>Scrivimi per avere maggiori informazioni!</p>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-8">
+                                            <!-- Modul EmailJS -->
+                                            <form id="contact-form">
+                                                <div class="mb-3">
+                                                    <input type="text" class="form-control" id="name" name="user_name"
+                                                        placeholder="Inserisci il tuo nome" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input type="email" class="form-control" id="email" name="user_email"
+                                                        placeholder="Inserisci la tua email" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <textarea class="form-control" id="message" name="message" rows="5"
+                                                        placeholder="Scrivi il tuo messaggio" required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Invia Messaggio</button>
+                                            </form>
+                                            <div id="email-status" class="mt-3"></div>
+                                        </div>
+                                    </div>
+                            `;
+                        break;
+                    default:
+                        content.innerHTML = `<h2>Benvenuto</h2><p>Scopri i nostri splendidi rettili e il nostro cibo congelato per serpenti.</p>`;
+                }
+                content.classList.remove('fade-out');
+                content.classList.add('slide-up', 'show');
+            }, 300);
+        }
+
+        (function () {
+            emailjs.init("uFRwJarlOMZ067SKa"); //ID EmailJS
+        })();
+
+        document.getElementById('contact-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const status = document.getElementById('email-status');
+            status.innerHTML = 'Invio in corso...';
+
+            emailjs.sendForm('service_nuujkxo', 'template_e7guzc4', this)
+                .then(function () {
+                    status.innerHTML = 'Messaggio inviato con successo!';
+                    document.getElementById('contact-form').reset();
+                }, function (error) {
+                    status.innerHTML = 'Errore nell\'invio del messaggio, riprova più tardi.';
+                });
+        });
+
+    </script>
+</body>
+
+</html>
