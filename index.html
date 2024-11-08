@@ -34,18 +34,14 @@
         .navbar-custom .nav-link {
             color: #FFD700;
             font-size: 1.1rem;
-            /* Aumenta leggermente la dimensione del testo */
             font-weight: bold;
-            /* Rendi il testo più visibile */
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-            /* Aggiunge ombra per migliorare il contrasto */
             transition: color 0.3s, transform 0.3s;
         }
 
         .navbar-custom .nav-link:hover {
             color: #FFC107;
             transform: scale(1.1);
-            /* Leggero ingrandimento al passaggio del mouse */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
@@ -101,7 +97,6 @@
 
         }
 
-        /* Stile delle card */
         .card {
             border: none;
             border-radius: 8px;
@@ -109,11 +104,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             height: 100%;
-            /* Imposta l'altezza uniforme */
             display: flex;
             flex-direction: column;
             margin-bottom: 100px;
-            /* Imposta un margine sotto ogni card */
         }
 
         .card:hover {
@@ -131,13 +124,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* Distribuisce uniformemente il contenuto */
             flex-grow: 1;/
         }
 
         .card-deck .card {
             height: 400px;
-            /* Imposta un'altezza fissa per tutte le card */
+     
         }
 
         .card-title {
@@ -232,6 +224,7 @@
         <p>&copy; 2024 Reptile World By Mihai Snake - Torino, Italia</p>
         <p>Email: mihaisnake76@gmail.com</p>
 
+        <p>Sito creato da Simone Vaira</p>
         <div id="contact">
             <a href="https://www.instagram.com/reptile_world_by_mihai/"><img src="Image/Instagram.svg"
                     alt="Instagram"></a>
@@ -242,7 +235,11 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+
+        emailjs.init("uj2SrCWci2l_Y_0PH"); 
+    
         function loadSection(section) {
             const content = document.getElementById('dynamic-content');
             content.classList.add('fade-out');
@@ -275,7 +272,7 @@
                                 </div>
                                 <div class="col-md-4 d-flex py-4">
                                     <div class="card mb-4 shadow-sm">
-                                        <img src="Image/PythonRegius/0.1_Pastel_Mojave_Cinnamon_66%_Het_Pied.jpg" class="card-img-top" alt="PythonRegius">
+                                        <img src="Image/PythonRegius/0.1_Pastel_Mojave.jpg" class="card-img-top" alt="PythonRegius">
                                         <div class="card-body">
                                             <h5 class="card-title">Pitone Reale</h5>
                                             <p class="card-text">Sesso: Femmina</p>
@@ -286,7 +283,7 @@
                                 </div>
                                 <div class="col-md-4 d-flex py-4">
                                     <div class="card mb-4 shadow-sm">
-                                        <img src="Image/PythonRegius/1.0_banana_butter_100%_het_clown.jpg" class="card-img-top" alt="PythonRegius">
+                                        <img src="Image/PythonRegius/1.0_banana_butter.jpg" class="card-img-top" alt="PythonRegius">
                                         <div class="card-body">
                                             <h5 class="card-title">Pitone Reale</h5>
                                             <p class="card-text">Sesso: Maschio</p>
@@ -393,7 +390,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="card mb-4 shadow-sm">
-                                        <img src="https://www.ameliadambrosio.it/Images/ratto_big_img2_hp.jpg" class="card-img-top" alt="Ratti congelati">
+                                        <img src="https://cdn.sanity.io/images/5fe89r5x/italy/ba83c9e96151c531bfab9443288173bd858e6cc6-4038x2614.jpg/riconoscere-ratto-di-fogna.jpg?rect=140,0,3759,2614&w=650&h=452&fit=scale&auto=format" class="card-img-top" alt="Ratti congelati">
                                         <div class="card-body">
                                             <h5 class="card-title">Ratti Congelati</h5>
                                             <p class="card-text">Disponibili in diverse taglie, qualità garantita per rettili di grandi dimensioni.</p>
@@ -450,6 +447,20 @@
                                         </div>
                                     </div>
                             `;
+                         document.getElementById('contact-form').addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    const status = document.getElementById('email-status');
+                    status.innerHTML = 'Invio in corso...';
+
+                    emailjs.sendForm('service_nuujkxo', 'template_e7guzc4', this)
+                        .then(function () {
+                            status.innerHTML = 'Messaggio inviato con successo!';
+                            document.getElementById('contact-form').reset();
+                        }, function (error) {
+                            status.innerHTML = 'Errore nell\'invio del messaggio, riprova più tardi.';
+                        });
+                });
                         break;
                     default:
                         content.innerHTML = `<h2>Benvenuto</h2><p>Scopri i nostri splendidi rettili e il nostro cibo congelato per serpenti.</p>`;
@@ -458,25 +469,6 @@
                 content.classList.add('slide-up', 'show');
             }, 300);
         }
-
-        (function () {
-            emailjs.init("uFRwJarlOMZ067SKa"); //ID EmailJS
-        })();
-
-        document.getElementById('contact-form').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const status = document.getElementById('email-status');
-            status.innerHTML = 'Invio in corso...';
-
-            emailjs.sendForm('service_nuujkxo', 'template_e7guzc4', this)
-                .then(function () {
-                    status.innerHTML = 'Messaggio inviato con successo!';
-                    document.getElementById('contact-form').reset();
-                }, function (error) {
-                    status.innerHTML = 'Errore nell\'invio del messaggio, riprova più tardi.';
-                });
-        });
 
     </script>
 </body>
